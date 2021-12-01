@@ -21,7 +21,8 @@ var config = {
       // vue: `vue/dist/${vueBundle}`,
       // 'vue': path.resolve(__dirname, '../node_modules/vue/dist/vue.esm-browser.js'),
       '@lixi': path.join(__dirname , '../src'),
-      '@site': path.join(__dirname , '../site')
+      '@site': path.join(__dirname , '../site'),
+      '@': path.join(__dirname , '../site')
     },
     // modules: [path.resolve(__dirname, '../node_modules')],
   },
@@ -131,7 +132,10 @@ var config = {
       filename: './index.html',
       favicon: './public/lixi-logo.png'
     }),
-    new VueLoaderPlugin()
+    new VueLoaderPlugin(),
+    new webpack.DefinePlugin({
+      "process.env": { VUE_APP_BASE_API: `'http://localhost:8080'` }
+    })
   ]
 }
 

@@ -19,11 +19,11 @@ body {
 body {
   // padding-top: 80px;
   // height: calc(100% - 80px);
-  height: auto;
+  height: 100%;
 }
 
 #app {
-  // height: 100%;
+  height: 100%;
 
   &.is-component {
     overflow-y: hidden;
@@ -356,4 +356,8 @@ textarea {
     padding: 0px;
     border: none
   }
+}
+
+.active-menu{
+  color: #fb6638 !important;
 }

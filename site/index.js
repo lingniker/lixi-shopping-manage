@@ -2,6 +2,8 @@ import { createApp } from 'vue';
 import App from "./app.vue";
 import router from './router/index.js';
 import icon from './icon.json'
+import store from './store/index'
+
 
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
@@ -14,6 +16,8 @@ var app = createApp(App);
 
 app.component('DemoBlock', demoBlock)
 app.config.globalProperties.$icon = icon
-app.use(router).use(ElementPlus)
+app.config.globalProperties.addDateRange = (val) => val
+app.config.globalProperties.getDicts = (val) => { return new Promise((resolver)=>{ resolver([]) }) }
+app.use(store).use(router).use(ElementPlus)
 
 app.mount('#app');
