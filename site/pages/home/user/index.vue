@@ -2,6 +2,7 @@
   <div class="app-container">
     <!--用户数据-->
       <!-- 部门数据 -->
+    <h1>用户管理</h1>
     <el-row :gutter="20">
       <el-col :span="20" :xs="24">
         <el-form :model="queryParams" ref="queryForm" :inline="true" v-show="showSearch" label-width="68px">
@@ -116,14 +117,16 @@
           <right-toolbar :showSearch.sync="showSearch" @queryTable="getList" :columns="columns"></right-toolbar>
         </el-row>
 
-        <!-- <el-table :data="userList" @selection-change="handleSelectionChange">
-          <el-table-column type="selection" width="50" align="center" />
-          <el-table-column label="用户编号" align="center" key="userId" prop="userId" v-if="columns[0].visible" />
-          <el-table-column label="用户名称" align="center" key="userName" prop="userName" v-if="columns[1].visible" :show-overflow-tooltip="true" />
-          <el-table-column label="用户昵称" align="center" key="nickName" prop="nickName" v-if="columns[2].visible" :show-overflow-tooltip="true" />
-          <el-table-column label="部门" align="center" key="deptName" prop="dept.deptName" v-if="columns[3].visible" :show-overflow-tooltip="true" />
-          <el-table-column label="手机号码" align="center" key="phonenumber" prop="phonenumber" v-if="columns[4].visible" width="120" />
-          <el-table-column label="状态" align="center" key="status" v-if="columns[5].visible">
+        <!-- @selection-change="handleSelectionChange" -->
+        <el-table
+          :data="userList"
+        >
+          <!-- <el-table-column type="selection" width="50" align="center" /> -->
+          <el-table-column label="用户编号" align="center" key="userId" prop="id"/>
+          <el-table-column label="用户名称" align="center" key="user_name" prop="user_name" v-if="columns[1].visible" :show-overflow-tooltip="true" />
+          <el-table-column label="用户昵称" align="center" key="nick_name" prop="nick_name" v-if="columns[2].visible" :show-overflow-tooltip="true" />
+          <el-table-column label="手机号码" align="center" key="mobile" prop="mobile" v-if="columns[4].visible" width="120" />
+          <!-- <el-table-column label="状态" align="center" key="status" v-if="columns[5].visible">
             <template #default={row}>
               <el-switch
                 v-model="row.status"
@@ -132,16 +135,10 @@
                 @change="() => { handleStatusChange(row) }"
               ></el-switch>
             </template>
+          </el-table-column> -->
+          <el-table-column label="创建时间" align="center" prop="created_at" v-if="columns[6].visible" width="160">
           </el-table-column>
-          <el-table-column label="创建时间" align="center" prop="createTime" v-if="columns[6].visible" width="160">
-            <template #default={row}>
-              <span>
-                {{ row.userId }}
-                {{ parseTime(row.createTime) }}
-              </span>
-            </template>
-          </el-table-column>
-          <el-table-column
+          <!-- <el-table-column
             label="操作"
             align="center"
             width="160"
@@ -154,24 +151,24 @@
                   type="text"
                   icon="el-icon-edit"
                   @click="handleUpdate(row)"
-                  v-hasPermi="['system:user:edit']"
                 >修改</el-button>
+                  v-hasPermi="['system:user:edit']"
                 <el-button
                   size="mini"
                   type="text"
                   icon="el-icon-delete"
                   @click="handleDelete(row)"
-                  v-hasPermi="['system:user:remove']"
                 >删除</el-button>
-                <el-dropdown size="mini" @command="(command) => handleCommand(command, row)" v-hasPermi="['system:user:resetPwd', 'system:user:edit']">
+                  v-hasPermi="['system:user:remove']" v-hasPermi="['system:user:resetPwd', 'system:user:edit']"
+                <el-dropdown size="mini" @command="(command) => handleCommand(command, row)" >
                   <span class="el-dropdown-link">
                     <i class="el-icon-d-arrow-right el-icon--right"></i>更多
                   </span>
                 </el-dropdown>
               </div>
             </template>
-          </el-table-column>
-        </el-table> -->
+          </el-table-column> -->
+        </el-table>
 
         <!-- <pagination
           v-show="total>0"
@@ -440,7 +437,7 @@ export default {
     // }
   },
   created() {
-    // this.getList();
+    this.getList();
     // this.getTreeselect();
     // this.getDicts("sys_normal_disable").then(response => {
     //   this.statusOptions = response.data;
@@ -457,12 +454,13 @@ export default {
     getList() {
       this.loading = true;
       // this.addDateRange(this.queryParams, this.dateRange)
-      // listUser(this.queryParams).then(response => {
-      //     this.userList = response.rows;
-      //     this.total = response.total;
-      //     this.loading = false;
-      //   }
-      // );
+      listUser(this.queryParams).then(response => {
+        console.log('-response-', response)
+        this.userList = response.data.data;
+        this.total = response.total;
+        this.loading = false;
+        }
+      );
     },
     // /** 查询部门下拉树结构 */
     getTreeselect() {
