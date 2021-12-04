@@ -92,26 +92,16 @@
     </el-row>
 
     <el-table ref="tables" v-loading="loading" :data="list" @selection-change="handleSelectionChange" :default-sort="defaultSort" @sort-change="handleSortChange">
-      <el-table-column type="selection" width="55" align="center" />
-      <el-table-column label="访问编号" align="center" prop="infoId" />
-      <!-- <el-table-column label="用户名称" align="center" prop="userName" :show-overflow-tooltip="true" sortable="custom" :sort-orders="['descending', 'ascending']" />
-      <el-table-column label="登录地址" align="center" prop="ipaddr" width="130" :show-overflow-tooltip="true" />
-      <el-table-column label="登录地点" align="center" prop="loginLocation" :show-overflow-tooltip="true" />
-      <el-table-column label="浏览器" align="center" prop="browser" :show-overflow-tooltip="true" /> -->
-      <el-table-column label="操作系统" align="center" prop="os" />
-      <el-table-column label="登录状态" align="center" prop="status">
-        <template #default={row}>
-          <lvm-dict-tag :options="statusOptions" :value="row.status"/>
-        </template>
+      <el-table-column label="访问编号" align="center" prop="id" />
+      <el-table-column label="登录类型" align="center" prop="login_type"/>
+      <el-table-column label="用户名称" align="center" prop="user_name"/>
+      <el-table-column label="登录地址" align="center" prop="ip" width="130" />
+      <el-table-column label="浏览器" align="center" prop="browser_type" :show-overflow-tooltip="true" />
+      <el-table-column label="操作系统" align="center" prop="system" />
+      <el-table-column label="操作信息" align="center" prop="login_massage" />
+      <el-table-column label="登录日期" align="center" prop="created_at" sortable="custom" width="180">
       </el-table-column>
-      <el-table-column label="操作信息" align="center" prop="msg" />
-      <!-- <el-table-column label="登录日期" align="center" prop="loginTime" sortable="custom" :sort-orders="['descending', 'ascending']" width="180">
-        <template #default={row}>
-          <span>{{ parseTime(row.loginTime) }}</span>
-        </template>
-      </el-table-column> -->
     </el-table>
-
     <pagination
       v-show="total>0"
       :total="total"
@@ -160,7 +150,7 @@ export default {
     };
   },
   created() {
-    // this.getList();
+    this.getList();
     // this.getDicts("sys_common_status").then(response => {
     //   this.statusOptions = response.data;
     // });
@@ -169,8 +159,15 @@ export default {
     /** 查询登录日志列表 */
     getList() {
       this.loading = true;
+      // 'user_name': 'admin1',
+      // 'ip': 'admin1',
+      // 'login_massage': '123',
+      // 'login_type': 'outlook',
+      // 'browser_type': '--',
+      // 'system': '123456'
+      // 'query': '123456'
       list(this.addDateRange(this.queryParams, this.dateRange)).then(response => {
-          this.list = response.rows;
+          this.list = response.data.data;
           this.total = response.total;
           this.loading = false;
         }

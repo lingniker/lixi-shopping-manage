@@ -5,6 +5,7 @@ import Logininfor from './logininfor/index.vue';
 import Operlog from './operlog/index.vue';
 import Shop from './shop/index.vue';
 import Order from './order/index.vue';
+import Address from './address/index.vue';
 
 var homeRouter = [
   {
@@ -48,6 +49,12 @@ var homeRouter = [
     name: 'order',
     title: '订单信息',
     component: Order
+  },
+  {
+    path: '/home/address',
+    name: 'address',
+    title: '地址信息',
+    component: Address
   }
 ]
 

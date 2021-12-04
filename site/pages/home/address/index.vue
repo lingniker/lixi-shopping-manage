@@ -2,7 +2,7 @@
   <div class="app-container">
     <!--用户数据-->
       <!-- 部门数据 -->
-    <div><h1>订单信息</h1></div>
+    <div><h1>地址信息</h1></div>
     <el-row :gutter="20">
       <el-col :span="20" :xs="24">
         <el-form :model="queryParams" ref="queryForm" :inline="true" v-show="showSearch" label-width="68px">
@@ -118,35 +118,17 @@
         </el-row>
 
 
-        <!-- 'user_id': '1',
-        'user_name': 'ling',
-        'user_address_id': '1',
-        'user_address_name': '深圳',
-        'shop_id': '9',
-        'shop_name': '商品',
-        'shop_address_name': '商品地址',
-        'shop_address_id': '2',
-        'shop_number': '1',
-        'shop_price': '100',
-        'shop_price_total': '100',
-        'order_status': '1',
-        'order_label': '待付款', // 1待付款 2已付款
-        'send_status': '1',
-        'send_label': '待付款',  -->
+        <!-- 'address_name': '广东省深圳市',
+        'user_id': '1',
+        'shop_id': '1',
+        'type': '2',
+        'type_describe': '商品地址' -->
         <el-table :data="userList" @selection-change="handleSelectionChange">
-          <el-table-column label="订单编号" align="center" key="id" prop="id" v-if="columns[0].visible" />
-          <el-table-column label="用户编号" align="center" key="user_id" prop="user_id" v-if="columns[0].visible" />
-          <el-table-column label="用户名称" align="center" key="user_name" prop="user_name" v-if="columns[0].visible" />
-          <el-table-column label="用户地址" align="center" key="user_address_name" prop="user_address_name" v-if="columns[0].visible" />
-          <el-table-column label="商品编号" align="center" key="shop_id" prop="shop_id" v-if="columns[0].visible" />
-          <el-table-column label="商品名称" align="center" key="shop_name" prop="shop_name" v-if="columns[0].visible" />
-          <el-table-column label="商品地址" align="center" key="shop_address_name" prop="shop_address_name" v-if="columns[0].visible" />
-          <el-table-column label="商品数量" align="center" key="shop_number" prop="shop_number" v-if="columns[0].visible" />
-          <el-table-column label="商品单价" align="center" key="shop_price" prop="shop_price" v-if="columns[0].visible" />
-          <el-table-column label="商品总价" align="center" key="shop_price_total" prop="shop_price_total" v-if="columns[0].visible" />
-          <el-table-column label="付款状态" align="center" key="order_label" prop="order_label" v-if="columns[0].visible" />
-          <el-table-column label="货物状态" align="center" key="send_label" prop="send_label" v-if="columns[0].visible" />
-
+          <el-table-column label="地址编号" align="center" key="id" prop="id" v-if="columns[0].visible" />
+          <el-table-column label="地址名称" align="center" key="address_name" prop="address_name" v-if="columns[1].visible" :show-overflow-tooltip="true" />
+          <el-table-column label="用户编号" align="center" key="user_id" prop="user_id" v-if="columns[2].visible" :show-overflow-tooltip="true" />
+          <el-table-column label="商品编号" align="center" key="shop_id" prop="shop_id" v-if="columns[3].visible" :show-overflow-tooltip="true" />
+          <el-table-column label="地址类型" align="center" key="type_describe" prop="type_describe" v-if="columns[4].visible" width="120" />
           <el-table-column label="创建时间" align="center" prop="created_at" v-if="columns[6].visible" width="160">
           </el-table-column>
           <!-- <el-table-column
@@ -325,13 +307,13 @@
 </template>
 
 <script>
-import { listUser, getUser, delUser, addUser, updateUser, exportUser, resetUserPwd, changeUserStatus, importTemplate } from "@/api/system/order";
+import { listUser, getUser, delUser, addUser, updateUser, exportUser, resetUserPwd, changeUserStatus, importTemplate } from "@/api/system/address";
 import { getToken } from "@/utils/auth";
 import Treeselect from "@riophae/vue-treeselect";
 import "@riophae/vue-treeselect/dist/vue-treeselect.css";
 
 export default {
-  name: "Order",
+  name: "Address",
   components: { Treeselect },
   data() {
     return {
@@ -467,7 +449,7 @@ export default {
       // this.addDateRange(this.queryParams, this.dateRange)
       listUser(this.queryParams).then(response => {
           // this.userList = response.rows;
-          this.userList = response.data.data.row;
+          this.userList = response.data.data;
           this.total = response.total;
           this.loading = false;
         }
