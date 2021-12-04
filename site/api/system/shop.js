@@ -10,6 +10,14 @@ export function listUser(query) {
   })
 }
 
+export function create (query) {
+  return request({
+    url: '/shop/create',
+    method: 'post',
+    data: query
+  })
+}
+
 // 查询用户详细
 export function getUser(userId) {
   return request({
