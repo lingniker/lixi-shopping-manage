@@ -4,24 +4,13 @@
     <el-row :gutter="24">
       <el-col :span="24" :xs="24">
         <el-form :model="queryParams" ref="queryForm" :inline="true" label-width="68px">
-          <el-form-item label="用户名称" prop="userName">
+          <el-form-item label="商品名称" prop="shop_name">
             <el-input
-              v-model="queryParams.userName"
-              placeholder="请输入用户名称"
+              v-model="queryParams.shop_name"
+              placeholder="请输入商品名称"
               clearable
               size="small"
               style="width: 240px"
-              @keyup.enter.native="handleQuery"
-            />
-          </el-form-item>
-          <el-form-item label="手机号码" prop="phonenumber">
-            <el-input
-              v-model="queryParams.phonenumber"
-              placeholder="请输入手机号码"
-              clearable
-              size="small"
-              style="width: 240px"
-              @keyup.enter.native="handleQuery"
             />
           </el-form-item>
           <el-form-item>
@@ -91,13 +80,16 @@
           </el-table-column>
         </el-table>
 
-        <!-- <pagination
-          v-show="total>0"
-          :total="total"
-          :page.sync="queryParams.pageNum"
-          :limit.sync="queryParams.pageSize"
-          @pagination="getList"
-        /> -->
+        <div class="page-box">
+          <el-pagination
+            background
+            @current-change="currentChange"
+            :current-page.sync="queryParams.current_page"
+            :page-size="10"
+            layout="total, prev, pager, next"
+            :total="total">
+          </el-pagination>
+        </div>
       </el-col>
     </el-row>
 
@@ -197,12 +189,9 @@ export default {
       ],
       form: {},// 表单参数
       queryParams: { // 查询参数
-        pageNum: 1,
-        pageSize: 10,
-        userName: undefined,
-        phonenumber: undefined,
-        status: undefined,
-        deptId: undefined
+        current_page: 1,
+        per_page: 10,
+        shop_name: undefined,
       },
     };
   },
@@ -246,7 +235,7 @@ export default {
     },
     /** 搜索按钮操作 */
     handleQuery() {
-      this.queryParams.pageNum = 1;
+      this.queryParams.current_page = 1;
       this.getList();
     },
     /** 重置按钮操作 */
@@ -318,6 +307,11 @@ export default {
         })
       })
       .catch((_) => {})
+    },
+    // 改变页码
+    currentChange (page) {
+      this.queryParams.current_page = page
+      this.getList()
     }
   }
 };

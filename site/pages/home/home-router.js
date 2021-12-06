@@ -27,18 +27,6 @@ var homeRouter = [
     component: Administrator
   },
   {
-    path: '/home/logininfor',
-    name: 'logininfor',
-    title: '登录信息',
-    component: Logininfor
-  },
-  {
-    path: '/home/operlog',
-    name: 'operlog',
-    title: '操作信息',
-    component: Operlog
-  },
-  {
     path: '/home/shop',
     name: 'shop',
     title: '商品信息',
@@ -49,6 +37,18 @@ var homeRouter = [
     name: 'order',
     title: '订单信息',
     component: Order
+  },
+  {
+    path: '/home/logininfor',
+    name: 'logininfor',
+    title: '登录信息',
+    component: Logininfor
+  },
+  {
+    path: '/home/operlog',
+    name: 'operlog',
+    title: '操作信息',
+    component: Operlog
   },
   {
     path: '/home/address',

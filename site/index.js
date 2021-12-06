@@ -13,7 +13,6 @@ import './style/index.scss'
 import 'highlight.js/styles/color-brewer.css'
 import { parseTime } from "./utils/ruoyi";
 
-
 import demoBlock from './components/demo-block/index.vue'
 var app = createApp(App);
 

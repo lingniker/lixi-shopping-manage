@@ -188,7 +188,6 @@ export default {
       this.loading = true;
       listUser(this.queryParams).then(response => {
           this.userList = response.data;
-          console.log('response.data.data.meta.total', response.meta.total)
           this.total = response.meta.total;
           this.loading = false;
         }

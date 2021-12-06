@@ -123,10 +123,10 @@ export default {
             // Cookies.remove('rememberMe');
           }
           this.$store.dispatch("Login", this.loginForm).then((res) => {
-            console.log('res', res)
-            window.sessionStorage.setItem('userInfo', JSON.stringify(res.data.data))
+            console.log('login---->', res)
+            window.sessionStorage.setItem('userInfo', JSON.stringify(res))
 
-            this.$router.push({ path: this.redirect || "/" }).catch(()=>{});
+            this.$router.push({ name: "home" }).catch(()=>{});
           }).catch((err) => {
             this.loading = false;
             if (this.captchaOnOff) {

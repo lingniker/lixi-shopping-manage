@@ -10,7 +10,7 @@ var routes = [
   },
   {
     path: "/home",
-    name: 'name',
+    name: 'home',
     redirect: '/home/introduce',
     component: Home,
     children: homeRouter
