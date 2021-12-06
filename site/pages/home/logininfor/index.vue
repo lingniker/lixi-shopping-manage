@@ -100,6 +100,9 @@
       <el-table-column label="操作系统" align="center" prop="system" />
       <el-table-column label="操作信息" align="center" prop="login_massage" />
       <el-table-column label="登录日期" align="center" prop="created_at" sortable="custom" width="180">
+        <template #default={row}>
+          <span>{{ parseTime(row.created_at) }}</span>
+        </template>
       </el-table-column>
     </el-table>
     <pagination
@@ -167,8 +170,8 @@ export default {
       // 'system': '123456'
       // 'query': '123456'
       list(this.addDateRange(this.queryParams, this.dateRange)).then(response => {
-          this.list = response.data.data;
-          this.total = response.total;
+          this.list = response;
+          this.total = response.length;
           this.loading = false;
         }
       );

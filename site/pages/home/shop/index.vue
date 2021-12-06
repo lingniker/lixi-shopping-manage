@@ -1,8 +1,8 @@
 <template>
   <div class="app-container">
     <div><h1>商品信息</h1></div>
-    <el-row :gutter="20">
-      <el-col :span="20" :xs="24">
+    <el-row :gutter="24">
+      <el-col :span="24" :xs="24">
         <el-form :model="queryParams" ref="queryForm" :inline="true" label-width="68px">
           <el-form-item label="商品名称" prop="shop_name">
             <el-input
@@ -58,14 +58,16 @@
             </template>
           </el-table-column>
         </el-table>
-
-        <!-- <pagination
-          v-show="total>0"
-          :total="total"
-          :page.sync="queryParams.pageNum"
-          :limit.sync="queryParams.pageSize"
-          @pagination="getList"
-        /> -->
+        <div class="page-box">
+          <el-pagination
+            background
+            @current-change="currentChange"
+            :current-page.sync="queryParams.current_page"
+            :page-size="10"
+            layout="total, prev, pager, next"
+            :total="total">
+          </el-pagination>
+        </div>
       </el-col>
     </el-row>
 
@@ -185,8 +187,9 @@ export default {
     getList() {
       this.loading = true;
       listUser(this.queryParams).then(response => {
-          this.userList = response.data.data.data;
-          this.total = response.total;
+          this.userList = response.data;
+          console.log('response.data.data.meta.total', response.meta.total)
+          this.total = response.meta.total;
           this.loading = false;
         }
       );
@@ -283,6 +286,11 @@ export default {
         this.$message.error('上传图片大小不能超过 2MB!');
       }
       return isJPG && isLt2M;
+    },
+    // 改变页码
+    currentChange (page) {
+      this.queryParams.current_page = page
+      this.getList()
     }
   }
 };
@@ -300,6 +308,16 @@ export default {
   }
   .avatar-uploader .el-upload:hover {
     border-color: #409EFF;
+  }
+  .page-container .content ul.el-pager {
+    margin: 0px !important;
+  }
+  .page-container .content .page  .el-pagination {
+    text-align: end;
+  }
+  .page-box{
+    padding:  20px 0;
+    text-align: right;
   }
 </style>
 

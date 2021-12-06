@@ -137,6 +137,9 @@
             </template>
           </el-table-column> -->
           <el-table-column label="创建时间" align="center" prop="created_at" v-if="columns[6].visible" width="160">
+            <template #default={row}>
+              <span>{{ parseTime(row.created_at) }}</span>
+            </template>
           </el-table-column>
           <!-- <el-table-column
             label="操作"
@@ -456,8 +459,8 @@ export default {
       // this.addDateRange(this.queryParams, this.dateRange)
       listUser(this.queryParams).then(response => {
         console.log('-response-', response)
-        this.userList = response.data.data;
-        this.total = response.total;
+        this.userList = response;
+        this.total = response.length;
         this.loading = false;
         }
       );

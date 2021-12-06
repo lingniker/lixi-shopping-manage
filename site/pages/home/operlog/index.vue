@@ -93,13 +93,16 @@
 
     <el-table ref="tables" v-loading="loading" :data="list" @selection-change="handleSelectionChange" :default-sort="defaultSort" @sort-change="handleSortChange">
       <el-table-column label="访问编号" align="center" prop="id" />
-      <el-table-column label="登录类型" align="center" prop="login_type"/>
+      <el-table-column label="访问类型" align="center" prop="login_type"/>
       <el-table-column label="用户名称" align="center" prop="user_name"/>
       <el-table-column label="登录地址" align="center" prop="ip" width="130" />
       <el-table-column label="浏览器" align="center" prop="browser_type" :show-overflow-tooltip="true" />
       <el-table-column label="操作系统" align="center" prop="system" />
       <el-table-column label="操作信息" align="center" prop="oper_massage" />
-      <el-table-column label="登录日期" align="center" prop="created_at" sortable="custom" width="180">
+      <el-table-column label="操作日期" align="center" prop="created_at"  width="180">
+        <template #default={row}>
+          <span>{{ parseTime(row.created_at) }}</span>
+        </template>
       </el-table-column>
     </el-table>
     <pagination
@@ -168,7 +171,7 @@ export default {
       // 'query': '123456'
       // this.addDateRange(this.queryParams, this.dateRange)
       list().then(response => {
-          this.list = response.data.data;
+          this.list = response;
           this.total = response.total;
           this.loading = false;
         }

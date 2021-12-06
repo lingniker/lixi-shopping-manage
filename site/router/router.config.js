@@ -11,6 +11,7 @@ var routes = [
   {
     path: "/home",
     name: 'name',
+    redirect: '/home/introduce',
     component: Home,
     children: homeRouter
   },

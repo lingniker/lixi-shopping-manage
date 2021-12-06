@@ -55,7 +55,7 @@ export default {
       cookiePassword: "",
       loginForm: {
         username: "admin",
-        password: "admin123",
+        password: "123456",
         rememberMe: false,
         code: "",
         uuid: ""
@@ -123,6 +123,9 @@ export default {
             // Cookies.remove('rememberMe');
           }
           this.$store.dispatch("Login", this.loginForm).then((res) => {
+            console.log('res', res)
+            window.sessionStorage.setItem('userInfo', JSON.stringify(res.data.data))
+
             this.$router.push({ path: this.redirect || "/" }).catch(()=>{});
           }).catch((err) => {
             this.loading = false;

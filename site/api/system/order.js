@@ -10,6 +10,15 @@ export function listUser(query) {
   })
 }
 
+// 查询用户列表
+export function update(query) {
+  return request({
+    url: '/order/update',
+    method: 'post',
+    data: query
+  })
+}
+
 // 查询用户详细
 export function getUser(userId) {
   return request({

@@ -7,6 +7,7 @@ import store from './store/index'
 
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
+import Pagination from "@/components/Pagination";
 
 import './style/index.scss'
 import 'highlight.js/styles/color-brewer.css'
@@ -17,6 +18,8 @@ import demoBlock from './components/demo-block/index.vue'
 var app = createApp(App);
 
 app.component('DemoBlock', demoBlock)
+app.component('Pagination', Pagination)
+
 app.config.globalProperties.$icon = icon
 app.config.globalProperties.parseTime = parseTime
 app.config.globalProperties.addDateRange = (val) => val
