@@ -134,7 +134,7 @@ var config = {
     }),
     new VueLoaderPlugin(),
     new webpack.DefinePlugin({
-      "process.env": { VUE_APP_BASE_API: `'http://localhost:8080'` }
+      "process.env": { VUE_APP_BASE_API: `'http://localhost:8080'`, NODE_ENV: '"development"' }
     })
   ]
 }

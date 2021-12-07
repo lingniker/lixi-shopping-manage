@@ -21,6 +21,7 @@ var config = {
   output: {
     path: path.join(__dirname, "../dist"),
     filename: 'index.js',
+    publicPath: '/shopping-manage/',
   },
   resolve: {
     extensions: ['.ts', '.tsx', '.js', '.vue', '.json'],
@@ -28,7 +29,8 @@ var config = {
       // // vue: `vue/dist/${vueBundle}`,
       // 'vue': path.resolve(__dirname, '../node_modules/vue/dist/vue.esm-browser.js'),
       '@lixi': path.join(__dirname , '../src'),
-      '@site': path.join(__dirname , '../site')
+      '@site': path.join(__dirname , '../site'),
+      '@': path.join(__dirname , '../site')
     },
   },
   module: {
@@ -136,6 +138,7 @@ var config = {
     new webpack.DefinePlugin({
       __VUE_OPTIONS_API__: JSON.stringify(true),
       __VUE_PROD_DEVTOOLS__: JSON.stringify(false),
+      'process.env': { NODE_ENV: '"production"' }
     }),
     new VueLoaderPlugin(),
     new MiniCssExtractPlugin({

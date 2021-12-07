@@ -112,11 +112,11 @@
           <el-col :span="12">
             <el-upload
               class="avatar-uploader"
-              action="http://127.0.0.1:8035/img-upload"
+              :action="baseApi + 'img-upload'"
               :show-file-list="false"
               :on-success="handleAvatarSuccess"
               :before-upload="beforeAvatarUpload">
-              <img v-if="imageUrl" :src=" 'http://127.0.0.1:8035/img/'+ imageUrl" class="avatar">
+              <img v-if="imageUrl" :src="baseImgPath + imageUrl" class="avatar">
               <i v-else class="el-icon-plus avatar-uploader-icon"></i>
             </el-upload>
           </el-col>
@@ -140,6 +140,8 @@
 <script>
 import { listUser, create, update } from "@/api/system/shop";
 import { getToken } from "@/utils/auth";
+import { baseApi, baseImgPath } from '@/config'
+
 
 export default {
   name: "Shop",
@@ -176,7 +178,9 @@ export default {
         stock: [{ required: true, message: "库存数不能为空", trigger: "blur" }],
         price: [{ required: true, message: "'价格不能为空", trigger: "blur" }]
       },
-      imageUrl: ''
+      imageUrl: '',
+      baseApi: baseApi,
+      baseImgPath: baseImgPath
     };
   },
   created() {
@@ -225,6 +229,7 @@ export default {
     /** 新增按钮操作 */
     handleAdd() {
       this.reset();
+      this.imageUrl = ''
       this.open = true;
     },
     /** 修改按钮操作 */
