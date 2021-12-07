@@ -65,7 +65,7 @@ export default {
       // 表单参数
       form: {},
       queryParams: { // 查询参数
-        current_name: 1,
+        current_page: 1,
         per_page: 10,
         _user_name: undefined
       }
