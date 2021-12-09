@@ -46,6 +46,7 @@
 // import { getCodeImg } from "@/api/login.js";
 // import Cookies from "js-cookie";
 import { encrypt, decrypt } from '@/utils/jsencrypt';
+import md5 from "md5-node";
 
 export default {
   name: "Login",
@@ -122,7 +123,9 @@ export default {
             // Cookies.remove("password");
             // Cookies.remove('rememberMe');
           }
-          this.$store.dispatch("Login", this.loginForm).then((res) => {
+          var loginForm = { ...this.loginForm }
+          loginForm.password = md5(this.loginForm.password)
+          this.$store.dispatch("Login", loginForm).then((res) => {
             console.log('login---->', res)
             window.sessionStorage.setItem('userInfo', JSON.stringify(res))
 
